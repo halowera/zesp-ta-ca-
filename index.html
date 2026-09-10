@@ -178,4 +178,60 @@ footer{background:var(--ink);color:#EFE7DC}
   <div><h4>Zespół Tańca Ludowego „Kundzia"</h4><small>Chełmno · Kujawsko-Pomorskie</small></div>
   <div><div class="flinks"><a href="#aktualnosci">Aktualności</a><a href="#o-nas">O nas</a><a href="#sukcesy">Sukcesy</a><a href="#galeria">Galeria</a><a href="#kontakt">Kontakt</a><a href="https://www.facebook.com/ztlkundzia/">Facebook</a></div><small style="display:block;margin-top:14px">© <span id="yr"></span> Zespół „Kundzia". Wszelkie prawa zastrzeżone.</small></div>
 </div></footer>
-<script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+<style>
+.news .card{cursor:pointer}
+.news .card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.read-more{display:inline-block;margin-top:10px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.news .card:hover .read-more{text-decoration:underline}
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;padding:24px;background:rgba(35,20,10,.55)}
+.modal.open{display:flex}
+.modal-card{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);max-width:620px;width:100%;margin:auto;box-shadow:var(--shadow);overflow:hidden;position:relative;max-height:90vh;overflow-y:auto}
+.modal-card .m-img{width:100%;height:280px;background-size:cover;background-position:center;background-color:var(--surface-2)}
+.modal-card .m-body{padding:26px 28px 30px}
+.modal-card .tag{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.modal-card h3{font-size:1.5rem;margin:8px 0 14px;font-weight:700}
+.modal-card p{margin:0 0 12px;color:var(--ink-soft);line-height:1.6}
+.m-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.m-close:hover{background:rgba(0,0,0,.7)}
+@media(max-width:520px){.modal-card .m-img{height:200px}.modal-card .m-body{padding:20px}}
+</style>
+<div class="modal" id="newsModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="m-close" id="mClose" aria-label="Zamknij">&times;</button>
+    <div class="m-img" id="mImg"></div>
+    <div class="m-body"><span class="tag" id="mTag"></span><h3 id="mTitle"></h3><div id="mText"></div></div>
+  </div>
+</div>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+(function(){
+  var modal=document.getElementById('newsModal');
+  var mImg=document.getElementById('mImg'),mTag=document.getElementById('mTag'),mTitle=document.getElementById('mTitle'),mText=document.getElementById('mText');
+  function openCard(card){
+    var tag=card.querySelector('.tag'),h=card.querySelector('h3'),thumb=card.querySelector('.thumb');
+    mTag.textContent=tag?tag.textContent:'';
+    mTitle.textContent=h?h.textContent:'';
+    var more=card.getAttribute('data-more');
+    if(more){mText.innerHTML=more;}
+    else{
+      var ps=card.querySelectorAll('.body p');
+      mText.innerHTML=Array.prototype.map.call(ps,function(p){return '<p>'+p.innerHTML+'</p>';}).join('');
+    }
+    if(thumb&&thumb.style.backgroundImage){mImg.style.backgroundImage=thumb.style.backgroundImage;mImg.style.display='';}
+    else{mImg.style.display='none';}
+    modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+    document.getElementById('mClose').focus();
+  }
+  function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  document.querySelectorAll('.news .card').forEach(function(card){
+    card.tabIndex=0;card.setAttribute('role','button');
+    var body=card.querySelector('.body');
+    if(body&&!body.querySelector('.read-more')){var s=document.createElement('span');s.className='read-more';s.textContent='Czytaj więcej →';body.appendChild(s);}
+    card.addEventListener('click',function(){openCard(card);});
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openCard(card);}});
+  });
+  document.getElementById('mClose').addEventListener('click',closeModal);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+})();
+</script>
