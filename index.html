@@ -46,15 +46,17 @@ h1,h2,h3{font-family:"Zilla Slab",Georgia,serif;font-weight:600;line-height:1.12
 .lang span{opacity:.6}
 header.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--surface);
   border-bottom:1px solid var(--line);box-shadow:0 2px 12px -6px rgba(0,0,0,.15)}
-[id]{scroll-margin-top:92px}
+[id]{scroll-margin-top:112px}
+body{padding-top:104px}
+@media(max-width:520px){body{padding-top:80px}}
 .nav-inner{display:flex;align-items:center;gap:16px;padding-block:13px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto;margin-left:22px}
 .brand .rk{width:34px;height:34px;border-radius:50%;background:var(--red);flex:none;display:grid;place-items:center}
 .brand .rk svg{width:22px;height:22px}
 .brand b{font-family:"Zilla Slab",serif;font-weight:700;font-size:1.2rem;letter-spacing:.02em}
 .brand small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:-3px;font-weight:600}
-.brand-logo{height:50px;width:auto;display:block}
-@media(max-width:520px){.brand-logo{height:40px}}
+.brand-logo{height:66px;width:auto;display:block}
+@media(max-width:520px){.brand-logo{height:48px}}
 nav.links{display:flex;gap:20px}
 nav.links a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-soft);padding-block:4px;border-bottom:2px solid transparent}
 nav.links a:hover{color:var(--red);border-color:var(--red)}
@@ -63,8 +65,7 @@ nav.links a:hover{color:var(--red);border-color:var(--red)}
 .hero .frame{border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#eef3ee}
 .hero .frame img{width:100%;height:auto}
 .hero-caption{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:20px}
-.hero-caption h1{font-size:clamp(1.8rem,3.6vw,2.7rem);font-weight:700;color:var(--red)}
-#wydarzenia .sec-title h2{color:var(--red)}
+.hero-caption h1{font-size:clamp(1.8rem,3.6vw,2.7rem);font-weight:700}
 .hero-caption .sub{color:var(--ink-soft);font-size:1.05rem}
 .hero-caption .loc{font-weight:600;color:var(--red);font-size:.95rem}
 .layout{display:grid;grid-template-columns:1fr 320px;gap:38px;padding-block:44px}
